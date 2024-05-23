@@ -36,13 +36,13 @@ class BinarySearchTree {
       if (!currentNode.left) {
         currentNode.left = newNode;
       } else {
-        this.insert(val, currentNode.left)
+        return this.insert(val, currentNode.left) // eith with or without return works, it may slow down execution time, but scale is uncertain
       }
     } else {
       if (!currentNode.right) {
         currentNode.right = newNode;
       } else {
-        this.insert(val, currentNode.right)
+        return this.insert(val, currentNode.right)
       }
     }
   }
@@ -51,15 +51,21 @@ class BinarySearchTree {
   // insert(val, currentNode=this.root) {
   //   // Your code here 
   //   let newNode = new TreeNode(val);
+  //   if (!this.root) {
+  //     this.root = newNode;
+  //     return;
+  //   }
+
+
   //   if (!currentNode) {
   //     currentNode = newNode;
   //     return;
   //   }
-
-  //   if (val < currentNode.val) {
+  //   // need to further look at this
+  //   if (val < currentNode.val && currentNode !== null) {
   //     currentNode = currentNode.left;
   //     this.insert(val, currentNode);
-  //   } else {
+  //   } else if (val > currentNode.val && currentNode !== null) {
   //     currentNode = currentNode.right;
   //     this.insert(val, currentNode);
   //   }
