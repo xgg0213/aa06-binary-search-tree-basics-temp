@@ -19,9 +19,6 @@ class BinarySearchTree {
     // Your code here 
     this.root = null;
 
-    // question: do I need to set up this.left and this.right here as well?
-    // this.left = null;
-    // this.right = null;
   }
 
   insert(val, currentNode=this.root) {
@@ -36,16 +33,12 @@ class BinarySearchTree {
     }
 
     if (val < currentNode.val) {
-      // currentNode = this.root.left;
-      // this.insert(val, currentNode);
       if (!currentNode.left) {
         currentNode.left = newNode;
       } else {
         this.insert(val, currentNode.left)
       }
     } else {
-      // currentNode = this.root.right;
-      // this.insert(val, currentNode);
       if (!currentNode.right) {
         currentNode.right = newNode;
       } else {
@@ -54,9 +47,26 @@ class BinarySearchTree {
     }
   }
 
+  // question: why this one does not work?
+  // insert(val, currentNode=this.root) {
+  //   // Your code here 
+  //   let newNode = new TreeNode(val);
+  //   if (!currentNode) {
+  //     currentNode = newNode;
+  //     return;
+  //   }
 
+  //   if (val < currentNode.val) {
+  //     currentNode = currentNode.left;
+  //     this.insert(val, currentNode);
+  //   } else {
+  //     currentNode = currentNode.right;
+  //     this.insert(val, currentNode);
+  //   }
+  // }
+
+  // option 1: with currentNode set up
   search(val, currentNode = this.root) {
-    // question: how do we refactor without currentNode?
     // Your code here 
     // if the tree is empty, return false;
     if (!currentNode) return false;
@@ -76,6 +86,24 @@ class BinarySearchTree {
 
   }
 
+  // option 2: without currentNode
+  // search(val) {
+  //   // Your code here 
+  //   // if the tree is empty, return false;
+  //   if (!this.root) return false;
+
+  //   // if 1+ nodes
+  //   let currentNode = this.root;
+  //   while (currentNode) {
+  //     if (currentNode.val === val) return true;
+  //     if (val < currentNode.val) {
+  //       currentNode = currentNode.left;
+  //     } else if (val > currentNode.val) {
+  //       currentNode = currentNode.right;
+  //     }
+  //   }
+  //   return false;
+  // }
 
   preOrderTraversal(currentNode = this.root) {
     // Your code here 
@@ -110,14 +138,57 @@ class BinarySearchTree {
     // Breadth First Traversal - Iterative
   breadthFirstTraversal() {
     // Your code here 
-    
+    // initialize a queue with the root node
+    let queue = [this.root];
+
+    // while the queue is not empty
+    while (queue.length) {
+      // print and remove first node in queue
+      let el = queue.shift();
+      console.log(el.val);
+
+      // if the node has a left node
+      if (el.left) {
+        // push the left node on the back of the queue
+        queue.push(el.left);
+      }
+      // if the node has a right node
+      if (el.right) {
+        // push the right node on the back of the queue
+        queue.push(el.right)
+      }
+    }
+      
+    return;
   }
 
   // Depth First Traversal - Iterative
   depthFirstTraversal() {
     // Your code here 
-  }
+    // initialize a stack with the root node
+    let stack = [this.root];
+    // while the stack is not empty
+    while (stack.length) {
+      // print and remove first node in stack
+      let el = stack.pop();
+      console.log(el.val);
+
+      // if the node has a left node
+      if (el.left) {
+        // push the left node on the back of the stack
+        stack.push(el.left)
+      }
+      // if the node has a right node
+      if (el.right) {
+        // push the right node on the back of the stack
+        stack.push(el.right)
+      }
+    }
+  return; 
+ }
 }
+
+// question: the reason why breadth and depth uses queue & stack is due to their own characteristics: FIFO vs. LIFO, right?
 
 module.exports = { BinarySearchTree, TreeNode };
 
