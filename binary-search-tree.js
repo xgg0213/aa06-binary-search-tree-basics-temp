@@ -25,6 +25,9 @@ class BinarySearchTree {
   }
 
   insert(val, currentNode=this.root) {
+    // question: 
+    // 1. how to set up a simple code to pass 2nd and 3rd test spec here?
+    // 2. why do we not use return before the recursion?
     // Your code here 
     let newNode = new TreeNode(val);
     if (!this.root) {
@@ -33,7 +36,6 @@ class BinarySearchTree {
     }
 
     if (val < currentNode.val) {
-      // question: how to set up a simple code to pass 2nd and 3rd test spec here?
       // currentNode = this.root.left;
       // this.insert(val, currentNode);
       if (!currentNode.left) {
@@ -53,13 +55,31 @@ class BinarySearchTree {
   }
 
 
-  search(val) {
+  search(val, currentNode = this.root) {
+    // question: how do we refactor without currentNode?
     // Your code here 
+    // if the tree is empty, return false;
+    if (!currentNode) return false;
+
+    // if 1+ nodes
+    let newNode = new TreeNode(val);
+
+    if (newNode.val === currentNode.val) return true;
+    if (newNode.val < currentNode.val) {
+      currentNode = currentNode.left;
+      return this.search(val,currentNode);
+    }
+    if (newNode.val > currentNode.val) {
+      currentNode = currentNode.right;
+      return this.search(val,currentNode);
+    }
+
   }
 
 
   preOrderTraversal(currentNode = this.root) {
     // Your code here 
+    
   }
 
 
@@ -87,13 +107,17 @@ module.exports = { BinarySearchTree, TreeNode };
 
 bst = new BinarySearchTree();
 bst.insert(4);
-console.log(bst.root.val);
 bst.insert(2);
+bst.insert(6);
+bst.insert(1);
+bst.insert(3);
+bst.insert(5);
+bst.insert(7);
 
-console.log(bst.root.val)//.to.equal(4);
-console.log(bst.root.right)//.to.equal(null);
-
-// let leftNode = bst.root.left;
-// console.log(leftNode.val)//.to.equal(2);
-// console.log(leftNode.left)//.to.equal(null);
-// console.log(leftNode.right)//.to.equal(null);
+console.log(bst.search(1))//.to.be.true;
+console.log(bst.search(2))//.to.be.true;
+console.log(bst.search(3))//.to.be.true;
+console.log(bst.search(4))//.to.be.true;
+console.log(bst.search(5))//.to.be.true;
+console.log(bst.search(6))//.to.be.true;
+console.log(bst.search(7))//.to.be.true;
