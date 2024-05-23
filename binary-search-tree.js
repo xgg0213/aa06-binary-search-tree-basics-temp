@@ -48,6 +48,8 @@ class BinarySearchTree {
   }
 
   // question: why this one does not work?
+  // answer: line 61 only modifies the local varialbe currentNode, without connecting the node to the tree
+  // the above is shown in the difference between this version and the correct one
   // insert(val, currentNode=this.root) {
   //   // Your code here 
   //   let newNode = new TreeNode(val);
@@ -56,7 +58,6 @@ class BinarySearchTree {
   //     return;
   //   }
 
-
   //   if (!currentNode) {
   //     currentNode = newNode;
   //     return;
@@ -64,7 +65,7 @@ class BinarySearchTree {
   //   // need to further look at this
   //   if (val < currentNode.val && currentNode !== null) {
   //     currentNode = currentNode.left;
-  //     this.insert(val, currentNode);
+  //     this.insert(val, currentNode.left);
   //   } else if (val > currentNode.val && currentNode !== null) {
   //     currentNode = currentNode.right;
   //     this.insert(val, currentNode);
@@ -198,19 +199,15 @@ class BinarySearchTree {
 
 module.exports = { BinarySearchTree, TreeNode };
 
-// bst = new BinarySearchTree();
-// bst.insert(4);
-// bst.insert(2);
-// bst.insert(6);
-// bst.insert(1);
-// bst.insert(3);
-// bst.insert(5);
-// bst.insert(7);
+bst = new BinarySearchTree();
+bst.insert(4);
+bst.insert(2);
 
-// console.log(bst.search(1))//.to.be.true;
-// console.log(bst.search(2))//.to.be.true;
-// console.log(bst.search(3))//.to.be.true;
-// console.log(bst.search(4))//.to.be.true;
-// console.log(bst.search(5))//.to.be.true;
-// console.log(bst.search(6))//.to.be.true;
-// console.log(bst.search(7))//.to.be.true;
+console.log(bst.root.val)//.to.equal(4);
+console.log(bst.root.right)//.to.equal(null);
+
+let leftNode = bst.root.left;
+console.log(leftNode)
+// console.log(leftNode.val)//.to.equal(2);
+// console.log(leftNode.left)//.to.equal(null);
+// console.log(leftNode.right)//.to.equal(null);
